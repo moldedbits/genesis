@@ -13,9 +13,7 @@ public class PassageDetails {
 
     private PassageText passageText;
 
-
     private List<Questions> questions;
-
 
     private List<Sentence> sentences;
 
@@ -50,13 +48,6 @@ public class PassageDetails {
     public static class Sentence {
         private String english;
         private String spanish;
-        private int id;
-        private static int counter;
-
-        public Sentence() {
-            setId(counter);
-            counter++;
-        }
     }
 }
 

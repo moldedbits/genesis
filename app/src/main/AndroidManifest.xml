@@ -12,7 +12,7 @@
 
         <activity
             android:name=".ExampleAppActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".passagedetail.PassageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
