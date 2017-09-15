@@ -2,7 +2,7 @@ package com.moldedbits.genesis.passagedetail;
 
 
 public interface FirebaseInteractor {
-    void getDataCategories(String categories);
+    void getDataPassageDetails(String passageDetails, String key, int index);
 
     void setCallBacks(DatabaseCallbacks callBacks);
 }

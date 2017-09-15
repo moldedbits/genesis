@@ -5,9 +5,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.moldedbits.genesis.models.Category;
+import com.moldedbits.genesis.models.response.PassageDetails;
 
-import timber.log.Timber;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseDataHandler implements FirebaseInteractor {
 
@@ -19,21 +20,22 @@ public class FirebaseDataHandler implements FirebaseInteractor {
     }
 
     @Override
-    public void getDataCategories(final String categories) {
-        DatabaseReference reference = firebaseDatabase.getReference(categories);
-        reference.addValueEventListener(new ValueEventListener() {
+    public void getDataPassageDetails(final String passageDetails, final String key, final int index) {
+        final List<PassageDetails> passageDetailList = new ArrayList<>();
+        DatabaseReference reference = firebaseDatabase.getReference(passageDetails);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Category category = snapshot.getValue(Category.class);
-                        if (category != null) {
-                            Timber.d("Value for key %s is %s", snapshot.getKey(),
-                                    category.getName());
-                        }
+                DataSnapshot dataSnapshot1 = dataSnapshot.child(key);
+                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                    PassageDetails passageDetails = dataSnapshot2.getValue(PassageDetails.class);
+                    if (passageDetails != null) {
+                        passageDetailList.add(passageDetails);
                     }
-                    if(callbacks!=null){
-                        callbacks.onDataCategoriesFetched(dataSnapshot.getChildren());
-                    }
+                }
+                if (callbacks != null) {
+                    callbacks.onDataPassagesFetched(passageDetailList.get(index));
+                }
             }
 
             @Override
