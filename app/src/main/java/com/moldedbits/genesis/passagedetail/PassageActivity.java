@@ -4,21 +4,9 @@ import android.os.Bundle;
 
 import com.moldedbits.genesis.BaseActivity;
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.passagedetail.PassageDetailContracts.PassageViewContracts;
 
 
-public class PassageActivity extends BaseActivity implements PassageViewContracts {
-
-    @Override
-    public void setupView() {
-
-    }
-
-    @Override
-    public void populateData() {
-
-    }
-
+public class PassageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
