@@ -76,7 +76,7 @@ public class ApiModule {
                 .createWithScheduler(Schedulers.io());
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.API_URL)
+                .baseUrl("")
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(rxAdapter)
