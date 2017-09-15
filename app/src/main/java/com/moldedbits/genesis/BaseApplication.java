@@ -2,16 +2,16 @@ package com.moldedbits.genesis;
 
 import android.app.Application;
 
+import com.moldedbits.genesis.passagedetail.FirebaseDataHandler;
+import com.moldedbits.genesis.passagedetail.FirebaseInteractor;
+
 import lombok.Getter;
 import timber.log.Timber;
 
-/**
- * Created by abhishek
- * on 05/04/16.
- */
 public class BaseApplication extends Application {
 
     private static BaseApplication instance;
+    private static FirebaseInteractor firebaseInteractor;
 
     @Getter
     protected ApiComponent apiComponent;
@@ -26,9 +26,14 @@ public class BaseApplication extends Application {
         }
 
         apiComponent = DaggerApiComponent.create();
+        firebaseInteractor = new FirebaseDataHandler();
     }
 
     public static BaseApplication getInstance() {
         return instance;
+    }
+
+    public static FirebaseInteractor getFirebaseInteractor() {
+        return firebaseInteractor;
     }
 }
