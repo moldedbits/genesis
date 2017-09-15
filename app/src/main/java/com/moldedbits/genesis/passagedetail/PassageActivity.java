@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.moldedbits.genesis.BaseActivity;
 import com.moldedbits.genesis.R;
 
-
 public class PassageActivity extends BaseActivity {
 
     @Override

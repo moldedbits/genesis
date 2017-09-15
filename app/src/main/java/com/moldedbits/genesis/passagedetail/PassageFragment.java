@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
 
 import static com.moldedbits.genesis.passagedetail.PassageDetailContracts.PassageViewContracts;
 
-
 public class PassageFragment extends BaseFragment implements PassageViewContracts {
 
     @BindView(R.id.tv_passage)

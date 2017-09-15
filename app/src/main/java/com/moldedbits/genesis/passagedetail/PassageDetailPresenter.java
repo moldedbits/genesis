@@ -1,11 +1,9 @@
 package com.moldedbits.genesis.passagedetail;
 
-
 import com.moldedbits.genesis.BaseApplication;
 import com.moldedbits.genesis.models.response.PassageDetails;
 
 public class PassageDetailPresenter implements PassageDetailContracts.Presenter, DatabaseCallbacks {
-
 
     private final PassageDetailContracts.PassageViewContracts passageView;
 

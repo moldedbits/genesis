@@ -1,6 +1,5 @@
 package com.moldedbits.genesis.passagedetail;
 
-
 import com.moldedbits.genesis.models.response.PassageDetails;
 
 public class PassageDetailContracts {
