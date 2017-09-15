@@ -6,7 +6,7 @@ preBuild.dependsOn 'checkstyle'
 check.dependsOn 'checkstyle'
 
 // auto increment version stuff
-import com.moldedbits.android.MBIncrementVersionTask
+import com.moldedbits.genesis.MBIncrementVersionTask
 
 task incrementVersionTask(type: MBIncrementVersionTask)
 tasks.whenTaskAdded { task ->
@@ -36,7 +36,7 @@ android {
     final API_URL_PROD = "https://bookstore-mb.herokuapp.com/";
 
     defaultConfig {
-        applicationId "com.moldedbits.android"
+        applicationId "com.moldedbits.genesis"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode incrementVersionTask.getCurrentVersionCode()

@@ -1,4 +1,4 @@
-package com.moldedbits.android
+package com.moldedbits.genesis
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper

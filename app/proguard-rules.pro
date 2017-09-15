@@ -29,7 +29,7 @@
 }
 
 ## Models
--keepclassmembers class com.moldedbits.android.model.** { *; }
+-keepclassmembers class com.moldedbits.genesis.model.** { *; }
 
 ##Design library
 -dontwarn android.support.design.**
