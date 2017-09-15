@@ -1,6 +1,6 @@
 apply plugin: 'checkstyle'
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.gms.google-services'
 
 preBuild.dependsOn 'checkstyle'
 check.dependsOn 'checkstyle'
@@ -34,10 +34,7 @@ task checkstyle(type: Checkstyle) {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-
-    final API_URL_DEV = "https://bookstore-mb.herokuapp.com/";
-    final API_URL_PROD = "https://bookstore-mb.herokuapp.com/";
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.moldedbits.genesis"
@@ -54,20 +51,13 @@ android {
     }
 
     signingConfigs {
-        // todo change as per app config
-        debugProd {
+        debug {
             storeFile file("../jumpstart.keystore")
             storePassword "moldedbits"
             keyAlias "jumpstart"
             keyPassword "moldedbits"
         }
         release {
-            storeFile file("../jumpstart.keystore")
-            storePassword "moldedbits"
-            keyAlias "jumpstart"
-            keyPassword "moldedbits"
-        }
-        releaseProd {
             storeFile file("../jumpstart.keystore")
             storePassword "moldedbits"
             keyAlias "jumpstart"
@@ -79,29 +69,13 @@ android {
         debug {
             applicationIdSuffix '.debug'
             minifyEnabled false
-            buildConfigField 'String', 'API_URL', "\"" + API_URL_DEV + "\""
-        }
-
-        debugProd {
-            applicationIdSuffix '.debug'
-            minifyEnabled false
-            buildConfigField 'String', 'API_URL', "\"" + API_URL_PROD + "\""
-            signingConfig signingConfigs.debugProd
         }
 
         release {
             applicationIdSuffix '.release'
-            buildConfigField 'String', 'API_URL', "\"" + API_URL_DEV + "\""
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-        }
-
-        releaseProd {
-            buildConfigField 'String', 'API_URL', "\"" + API_URL_PROD + "\""
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.releaseProd
         }
     }
 
