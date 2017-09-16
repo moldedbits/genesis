@@ -16,9 +16,10 @@ import android.widget.TextView
 import com.moldedbits.genesis.R
 import com.moldedbits.genesis.models.response.Question
 
-class QuestionView : LinearLayout {
+class QuestionView : LinearLayout, TranslatableTextView.TranslatableClickListener {
 
     interface QuestionListener {
+        fun onTranslationRequested(original: String, translation: String)
         fun onAnswered()
     }
 
@@ -54,7 +55,10 @@ class QuestionView : LinearLayout {
     }
 
     fun setQuestion(count: Int, question: Question) {
-        (findViewById(R.id.question_text) as TextView).text = question.questionText.spanish
+        val questionTextView = (findViewById(R.id.question_text) as TranslatableTextView)
+        questionTextView.setText(question.questionText)
+        questionTextView.setTranslatableClickListener(this)
+
         (findViewById(R.id.question_count) as TextView).text = (count.toString() + ".")
 
         if (question.type.equals("multiple_choice", true)) {
@@ -164,5 +168,9 @@ class QuestionView : LinearLayout {
     private fun onAnswered() {
         isAnswered = true
         listener?.onAnswered()
+    }
+
+    override fun onClick(original: String, translation: String) {
+        listener?.onTranslationRequested(original, translation)
     }
 }

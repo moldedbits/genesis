@@ -24,7 +24,7 @@ public class CategoryListAdaptor
     private List<Category> categoryList;
     private CategoryClickListener clickListener;
 
-    LocalStorage localStorage = LocalStorage.getInstance();
+    private LocalStorage localStorage = LocalStorage.getInstance();
 
     CategoryListAdaptor(Context context, CategoryClickListener clickListener) {
         this.context = context;
@@ -43,7 +43,13 @@ public class CategoryListAdaptor
         Category category = categoryList.get(position);
         holder.categorySpanish.setText(category.getName().getSpanish());
         holder.categoryEnglish.setText(category.getName().getEnglish());
-        holder.status.setText(localStorage.getCategoryProgressString(category.getKey()));
+
+        String status = localStorage.getCategoryProgressString(category.getKey());
+        holder.status.setText(status);
+
+        holder.statusIcon.setVisibility(status.equalsIgnoreCase("Completed") ?
+                View.VISIBLE : View.GONE);
+
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
@@ -76,6 +82,9 @@ public class CategoryListAdaptor
 
         @BindView(R.id.status)
         TextView status;
+
+        @BindView(R.id.status_icon)
+        View statusIcon;
 
         CategoriesViewHolder(View itemView) {
             super(itemView);

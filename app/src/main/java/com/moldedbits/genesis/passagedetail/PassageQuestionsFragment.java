@@ -16,13 +16,17 @@ import com.moldedbits.genesis.models.response.TranslatableString;
 import com.moldedbits.genesis.utils.LocalStorage;
 import com.moldedbits.genesis.widgets.QuestionView;
 import com.moldedbits.genesis.widgets.TranslatableTextView;
+import com.moldedbits.genesis.widgets.TranslationDialog;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PassageQuestionsFragment extends Fragment implements QuestionView.QuestionListener {
+public class PassageQuestionsFragment extends Fragment implements QuestionView.QuestionListener,
+        TranslatableTextView.TranslatableClickListener {
 
     private PassageDetails passageDetails;
     private int passageIndex;
@@ -68,6 +72,7 @@ public class PassageQuestionsFragment extends Fragment implements QuestionView.Q
                 getString(R.string.questions_english),
                 getString(R.string.questions_spanish));
         labelQuestions.setText(label);
+        labelQuestions.setTranslatableClickListener(this);
 
         questionContainer.removeAllViews();
         for (int i=0; i<details.getQuestions().size(); i++) {
@@ -96,5 +101,15 @@ public class PassageQuestionsFragment extends Fragment implements QuestionView.Q
             progress.setCompletedPassages(completedPassages);
             localStorage.storeCategoryProgress(progress);
         }
+    }
+
+    @Override
+    public void onTranslationRequested(@NotNull String original, @NotNull String translation) {
+        TranslationDialog.newInstance(original, translation).show(getFragmentManager(), "Translation");
+    }
+
+    @Override
+    public void onClick(@NotNull String original, @NotNull String translation) {
+        TranslationDialog.newInstance(original, translation).show(getFragmentManager(), "Translation");
     }
 }
