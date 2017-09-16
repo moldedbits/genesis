@@ -39,7 +39,7 @@ class QuestionView : LinearLayout {
         (findViewById(R.id.question_count) as TextView).text = (count.toString() + ".")
 
         if (question.type.equals("multiple_choice", true)) {
-            findViewById(R.id.answer_text).visibility = View.GONE
+            findViewById(R.id.answer_text_container).visibility = View.GONE
 
             val multipleContainer = findViewById(R.id.multiple_choice) as RadioGroup
             multipleContainer.visibility = View.VISIBLE
@@ -58,6 +58,7 @@ class QuestionView : LinearLayout {
             }
         } else {
             findViewById(R.id.multiple_choice).visibility = View.GONE
+            findViewById(R.id.answer_text_container).visibility = View.VISIBLE
 
             answerText.text = ""
             answerText.visibility = View.VISIBLE

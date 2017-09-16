@@ -38,6 +38,7 @@
                 tools:text="This is a question text for the passage?"/>
 
             <LinearLayout
+                android:id="@+id/answer_text_container"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
