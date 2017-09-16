@@ -37,7 +37,9 @@ public class CategoryListAdaptor
 
     @Override
     public void onBindViewHolder(CategoriesViewHolder holder, int position) {
-        holder.tvCategoryName.setText(categoryList.get(position).getName());
+        holder.categorySpanish.setText(categoryList.get(position).getName().getSpanish());
+        holder.categoryEnglish.setText(categoryList.get(position).getName().getEnglish());
+        holder.status.setText("Not started");
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
@@ -62,8 +64,14 @@ public class CategoryListAdaptor
 
     class CategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.title)
-        TextView tvCategoryName;
+        @BindView(R.id.title_original)
+        TextView categorySpanish;
+
+        @BindView(R.id.title_translation)
+        TextView categoryEnglish;
+
+        @BindView(R.id.status)
+        TextView status;
 
         CategoriesViewHolder(View itemView) {
             super(itemView);

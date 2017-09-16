@@ -37,7 +37,9 @@ public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.
 
     @Override
     public void onBindViewHolder(PassageViewHolder holder, int position) {
-        holder.tvCategoryName.setText(passageList.get(position).getDisplayName().getEnglish());
+        holder.categorySpanish.setText(passageList.get(position).getDisplayName().getSpanish());
+        holder.categoryEnglish.setText(passageList.get(position).getDisplayName().getEnglish());
+        holder.status.setText(passageList.get(position).getDifficulty());
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
@@ -63,8 +65,14 @@ public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.
 
     static class PassageViewHolder extends RecyclerView.ViewHolder  {
 
-        @BindView(R.id.title)
-        TextView tvCategoryName;
+        @BindView(R.id.title_original)
+        TextView categorySpanish;
+
+        @BindView(R.id.title_translation)
+        TextView categoryEnglish;
+
+        @BindView(R.id.status)
+        TextView status;
 
         PassageViewHolder(View itemView) {
             super(itemView);
