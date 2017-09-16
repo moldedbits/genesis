@@ -10,4 +10,14 @@
     <string name="please_wait">Please wait</string>
     <string name="internet_slow_or_disconnected">No internet available or very slow.</string>
     <string name="something_went_wrong">Something went wrong.</string>
+    <string name="genesis">Genesis</string>
+    <string name="answer">Answer</string>
+    <string name="questions_spanish">Preguntas</string>
+    <string name="questions_english">Questions</string>
+    <string name="submit">Submit</string>
+    <string name="categories">Categories</string>
+    <string name="select_a_category">Select a Category</string>
+    <string name="select_a_passage">Select a Passage</string>
+    <string name="fin">Fin</string>
+    <string name="x">x</string>
 </resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/passage_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_4x"
+        android:orientation="vertical">
+
+        <com.moldedbits.genesis.widgets.TranslatableTextView
+            android:id="@+id/passage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_2x"
+            android:layout_marginEnd="@dimen/margin_2x"
+            style="@style/SectionHeader"
+            tools:text="At the Airport"/>
+
+        <com.moldedbits.genesis.widgets.TranslatableTextView
+            android:id="@+id/tv_passage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_2x"
+            android:textSize="@dimen/text_2x"
+            android:textColor="@android:color/black"
+            android:lineSpacingMultiplier="1.4"
+            tools:text="This is a spanish passage but for testing purposes we are writing this
+             in English." />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2x"
+            android:layout_marginBottom="@dimen/margin_2x"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/text_2x"
+            android:text="@string/fin"/>
+    </LinearLayout>
+</ScrollView>

@@ -6,11 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.moldedbits.genesis.api.ApiService;
 import com.moldedbits.genesis.dialogs.LoadingDialog;
 import com.moldedbits.genesis.utils.fragmenttransactionhandler.FragmentTransactionHandler;
-
-import javax.inject.Inject;
 
 
 /**
@@ -18,9 +15,6 @@ import javax.inject.Inject;
  * on 08/01/16.
  */
 public abstract class BaseActivity extends AppCompatActivity {
-
-    @Inject
-    ApiService apiService;
 
     private FrameLayout contentFrame;
     protected FragmentTransactionHandler handler;
