@@ -1,32 +1,30 @@
 package com.moldedbits.genesis.passagedetail;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.moldedbits.genesis.BaseFragment;
 import com.moldedbits.genesis.R;
 import com.moldedbits.genesis.models.response.PassageDetails;
-import com.moldedbits.genesis.models.response.Question;
-import com.moldedbits.genesis.models.response.TranslatableString;
-import com.moldedbits.genesis.widgets.QuestionView;
 import com.moldedbits.genesis.widgets.TranslatableTextView;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.moldedbits.genesis.passagedetail.PassageDetailContracts.PassageViewContracts;
+public class PassageFragment extends BaseFragment implements
+        TranslatableTextView.TranslatableClickListener {
 
-public class PassageFragment extends BaseFragment implements PassageViewContracts {
-
-    @BindView(R.id.passage_content)
-    View contentContainer;
-
-    @BindView(R.id.passage_progress)
-    View progressView;
+    private PassageDetails passageDetails;
 
     @BindView(R.id.passage_title)
     TranslatableTextView tvTitle;
@@ -34,11 +32,10 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
     @BindView(R.id.tv_passage)
     TranslatableTextView tvPassage;
 
-    @BindView(R.id.label_questions)
-    TranslatableTextView labelQuestions;
+    @BindView(R.id.shadow)
+    View shadow;
 
-    @BindView(R.id.question_container)
-    LinearLayout questionContainer;
+    private PopupWindow popupWindow;
 
     @Nullable
     @Override
@@ -52,36 +49,76 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        PassageDetailPresenter passageDetailPresenter = new PassageDetailPresenter(this);
-        passageDetailPresenter.init();
+        if (passageDetails != null) {
+            populateData(passageDetails);
+        }
+
+        shadow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hidePopup();
+            }
+        });
     }
 
-    @Override
-    public void showContent() {
-        progressView.setVisibility(View.GONE);
-        contentContainer.setVisibility(View.VISIBLE);
+    public void setPassage(PassageDetails passageDetails) {
+        this.passageDetails = passageDetails;
+        if (tvTitle != null) {
+            populateData(passageDetails);
+        }
     }
 
-    @Override
     public void populateData(PassageDetails details) {
         // Title
         tvTitle.setText(details.getDisplayName());
 
         // Passage
+        tvPassage.setTranslatableClickListener(this);
         tvPassage.setText(details.getPassageText().getSpanish(), details.getSentences());
+    }
 
-        // Populate questions
-        TranslatableString label = new TranslatableString(
-                getString(R.string.questions_english),
-                getString(R.string.questions_spanish));
-        labelQuestions.setText(label);
+    @Override
+    public void onClick(@NonNull String original, @NotNull String translation) {
+        View popupContent;
+        if (popupWindow == null) {
+            popupContent = LayoutInflater.from(getContext())
+                    .inflate(R.layout.popup_translation, null);
 
-        questionContainer.removeAllViews();
-        for (int i=0; i<details.getQuestions().size(); i++) {
-            Question question = details.getQuestions().get(i);
-            QuestionView view = new QuestionView(getContext());
-            view.setQuestion(i, question);
-            questionContainer.addView(view);
+            popupContent.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hidePopup();
+                }
+            });
+
+            popupWindow = new PopupWindow(popupContent,
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        } else {
+            popupContent = popupWindow.getContentView();
         }
+
+        ((TextView) popupContent.findViewById(R.id.text_original)).setText(original);
+        ((TextView) popupContent.findViewById(R.id.text_translation)).setText(translation);
+
+
+        showPopup();
+    }
+
+    private void showPopup() {
+        // Set an elevation value for popup window
+        // Call requires API level 21
+        if(Build.VERSION.SDK_INT>=21){
+            popupWindow.setElevation(5.0f);
+        }
+
+        popupWindow.showAtLocation(tvPassage, Gravity.CENTER, 0, 0);
+        shadow.setVisibility(View.VISIBLE);
+    }
+
+    private void hidePopup() {
+        if (popupWindow != null) {
+            popupWindow.dismiss();
+        }
+        shadow.setVisibility(View.GONE);
     }
 }

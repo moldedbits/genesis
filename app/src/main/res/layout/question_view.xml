@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_2x"
-            android:textColor="@color/text_light"
+            android:textColor="@color/text_dark"
             android:layout_marginEnd="@dimen/margin_x"
             android:layout_marginRight="@dimen/margin_x"
             tools:text="1."/>
@@ -34,18 +34,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_2x"
                 android:textSize="@dimen/text_2x"
-                android:textColor="@color/text_light"
+                android:textColor="@color/text_dark"
                 tools:text="This is a question text for the passage?"/>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/answer_text"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/answer_text_container"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_2x"
-                android:textColor="@color/text_light"
-                android:textColorHint="@color/text_light"
-                app:backgroundTint="@color/text_light"
-                android:hint="@string/answer"/>
+                android:gravity="center_vertical">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/answer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_4x"
+                    android:layout_marginRight="@dimen/margin_4x"
+                    android:textSize="@dimen/text_2x"
+                    android:textColor="@color/text_dark"
+                    android:hint="@string/answer"/>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btn_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_done_white_18dp"
+                    android:background="@drawable/btn_submit_bg"
+                    app:tint="@color/btn_submit_fg"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -8,10 +8,15 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.AttributeSet
 import android.view.View
-import android.widget.Toast
 import com.moldedbits.genesis.models.response.TranslatableString
 
 class TranslatableTextView : AppCompatTextView {
+
+    interface TranslatableClickListener {
+        fun onClick(original: String, translation: String)
+    }
+
+    var clickListener: TranslatableClickListener? = null
 
     constructor(context: Context) : super(context)
 
@@ -19,6 +24,10 @@ class TranslatableTextView : AppCompatTextView {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) :
             super(context, attrs, defStyleAttr)
+
+    fun setTranslatableClickListener(listener: TranslatableClickListener) {
+        this.clickListener = listener
+    }
 
     fun setText(translatableString: TranslatableString) {
         setText(translatableString.spanish, listOf(translatableString))
@@ -34,7 +43,7 @@ class TranslatableTextView : AppCompatTextView {
 
             val span = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    Toast.makeText(context, english, Toast.LENGTH_SHORT).show()
+                    clickListener?.onClick(spanish, english)
                 }
 
                 override fun updateDrawState(ds: TextPaint) {

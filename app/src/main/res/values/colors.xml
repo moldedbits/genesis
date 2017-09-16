@@ -7,4 +7,7 @@
     <color name="divider_shadow">#EEE</color>
     <color name="white">#FFFFFF</color>
     <color name="text_light">#FFFFFF</color>
+    <color name="text_dark">#333</color>
+    <color name="border">#CCC</color>
+    <color name="text_secondary">#777</color>
 </resources>

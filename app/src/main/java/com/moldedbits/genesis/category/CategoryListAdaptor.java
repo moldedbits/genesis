@@ -1,33 +1,30 @@
 package com.moldedbits.genesis.category;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.moldedbits.genesis.R;
 import com.moldedbits.genesis.models.Category;
+import com.moldedbits.genesis.utils.LocalStorage;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Getter;
-import lombok.Setter;
 
-/**
- * Created by MOLDEDBITS on 15-09-2017.
- */
-
-public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdaptor.CategoriesViewHolder> {
+public class CategoryListAdaptor
+        extends RecyclerView.Adapter<CategoryListAdaptor.CategoriesViewHolder>
+        implements View.OnClickListener {
 
     private final Context context;
     private List<Category> categoryList;
     private CategoryClickListener clickListener;
+
+    LocalStorage localStorage = LocalStorage.getInstance();
 
     CategoryListAdaptor(Context context, CategoryClickListener clickListener) {
         this.context = context;
@@ -42,22 +39,26 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
     }
 
     @Override
-    public void onBindViewHolder(CategoriesViewHolder holder, final int position) {
-        holder.tvCategoryName.setText(categoryList.get(position).getName());
-        holder.cvCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onItemClick(v, position);
-            }
-        });
+    public void onBindViewHolder(CategoriesViewHolder holder, int position) {
+        Category category = categoryList.get(position);
+        holder.categorySpanish.setText(category.getName().getSpanish());
+        holder.categoryEnglish.setText(category.getName().getEnglish());
+        holder.status.setText(localStorage.getCategoryProgressString(category.getKey()));
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        clickListener.onItemClick(v, (Integer) v.getTag());
     }
 
     @Override
     public int getItemCount() {
-            return categoryList.size();
+        return categoryList.size();
     }
 
-    public void setCategoriesList(List<Category> categories) {
+    void setCategoriesList(List<Category> categories) {
         this.categoryList = categories;
     }
 
@@ -67,10 +68,14 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
 
     class CategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.category_name)
-        TextView tvCategoryName;
-        @BindView(R.id.cvCategory)
-        CardView cvCategory;
+        @BindView(R.id.title_original)
+        TextView categorySpanish;
+
+        @BindView(R.id.title_translation)
+        TextView categoryEnglish;
+
+        @BindView(R.id.status)
+        TextView status;
 
         CategoriesViewHolder(View itemView) {
             super(itemView);
