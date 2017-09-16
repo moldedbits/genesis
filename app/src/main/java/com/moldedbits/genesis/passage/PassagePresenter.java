@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.moldedbits.genesis.models.Category;
 import com.moldedbits.genesis.models.Passage;
+import com.moldedbits.genesis.models.response.PassageDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +24,20 @@ class PassagePresenter implements PassageContract.IPresenter {
     }
 
     @Override
-    public void getPassages(String passageKey) {
+    public void getPassages(final String passageKey) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("passages").child(passageKey);
+        DatabaseReference myRef = database.getReference("passages");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot dataSnapshot1 = dataSnapshot.child(passageKey);
                 List<Passage> passages = new ArrayList<>();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
+                   for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                    Passage passage = dataSnapshot2.getValue(Passage.class);
+                    if (passage != null) {
+                        passages.add(passage);
+                    }
                 }
                 view.showPassages(passages);
             }

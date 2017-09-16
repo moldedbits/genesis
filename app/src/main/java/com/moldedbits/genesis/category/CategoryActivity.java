@@ -36,7 +36,7 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
         ButterKnife.bind(this);
-        adapter = new CategoryListAdaptor(this);
+        adapter = new CategoryListAdaptor(this, this);
         categoryPresenter = new CategoryPresenter(this);
         categoryPresenter.getCategories();
     }

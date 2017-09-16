@@ -26,15 +26,17 @@ public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.
 
     private final Context context;
     private List<Passage> passageList;
+    private PassageClickListener clickListener ;
 
-    PassageListAdaptor(Context context) {
+    PassageListAdaptor(Context context, PassageClickListener clickListener) {
         this.context = context;
+        this.clickListener = clickListener;
     }
 
     @Override
     public PassageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.rv_category, parent, false);
+                .inflate(R.layout.rv_passage, parent, false);
         return new PassageViewHolder(view);
     }
 
@@ -48,7 +50,7 @@ public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.
             return passageList.size();
     }
 
-    public void setCategoriesList(List<Passage> passages) {
+    public void setPassageList(List<Passage> passages) {
         this.passageList = passages;
     }
 
@@ -61,9 +63,6 @@ public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.
         TextView tvCategoryName;
         @BindView(R.id.cvPassage)
         CardView cvPassage;
-        @Setter
-        @Getter
-        private String sku;
 
         PassageViewHolder(View itemView) {
             super(itemView);

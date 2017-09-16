@@ -32,14 +32,10 @@ class CategoryPresenter implements CategoryContract.IPresenter {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Category category = new Category();
+                    Category category = snapshot.getValue(Category.class);
                     category.setKey(snapshot.getKey());
-                    category.setName(snapshot.getValue(String.class));
-
-                    if (category != null) {
-                     categories.add(category);
+                    categories.add(category);
                     }
-                }
                 view.showCategories(categories);
             }
 

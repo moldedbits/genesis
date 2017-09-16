@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.moldedbits.genesis.R;
@@ -28,8 +29,9 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
     private List<Category> categoryList;
     private CategoryClickListener clickListener;
 
-    CategoryListAdaptor(Context context) {
+    CategoryListAdaptor(Context context, CategoryClickListener clickListener) {
         this.context = context;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -40,8 +42,14 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
     }
 
     @Override
-    public void onBindViewHolder(CategoriesViewHolder holder, int position) {
+    public void onBindViewHolder(CategoriesViewHolder holder, final int position) {
         holder.tvCategoryName.setText(categoryList.get(position).getName());
+        holder.cvCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(v, position);
+            }
+        });
     }
 
     @Override
@@ -63,9 +71,6 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
         TextView tvCategoryName;
         @BindView(R.id.cvCategory)
         CardView cvCategory;
-        @Setter
-        @Getter
-        private String sku;
 
         CategoriesViewHolder(View itemView) {
             super(itemView);
@@ -74,8 +79,8 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
         }
 
         @Override
-        public void onClick(View view) {
-            if (clickListener != null) clickListener.onItemClick(view, getAdapterPosition());
+        public void onClick(View v) {
+
         }
     }
 }
