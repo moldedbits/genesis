@@ -64,7 +64,7 @@ public class PassageQuestionsFragment extends Fragment {
         for (int i=0; i<details.getQuestions().size(); i++) {
             Question question = details.getQuestions().get(i);
             QuestionView view = new QuestionView(getContext());
-            view.setQuestion(i, question);
+            view.setQuestion(i + 1, question);
             questionContainer.addView(view);
         }
     }

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_2x"
-            android:textColor="@color/text_light"
+            android:textColor="@color/text_dark"
             android:layout_marginEnd="@dimen/margin_x"
             android:layout_marginRight="@dimen/margin_x"
             tools:text="1."/>
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_2x"
                 android:textSize="@dimen/text_2x"
-                android:textColor="@color/text_light"
+                android:textColor="@color/text_dark"
                 tools:text="This is a question text for the passage?"/>
 
             <LinearLayout
@@ -51,9 +51,7 @@
                     android:layout_marginEnd="@dimen/margin_4x"
                     android:layout_marginRight="@dimen/margin_4x"
                     android:textSize="@dimen/text_2x"
-                    android:textColor="@color/text_light"
-                    android:textColorHint="@color/text_light"
-                    app:backgroundTint="@color/text_light"
+                    android:textColor="@color/text_dark"
                     android:hint="@string/answer"/>
 
                 <android.support.v7.widget.AppCompatImageButton

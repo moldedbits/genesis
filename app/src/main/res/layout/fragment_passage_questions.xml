@@ -7,8 +7,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/padding_4x"
-        android:background="@color/colorPrimary">
+        android:paddingTop="@dimen/padding_4x">
 
         <com.moldedbits.genesis.widgets.TranslatableTextView
             android:id="@+id/label_questions"
@@ -18,7 +17,7 @@
             android:layout_marginEnd="@dimen/margin_2x"
             android:layout_marginBottom="@dimen/margin_2x"
             android:text="@string/questions_spanish"
-            style="@style/SectionHeader.Dark" />
+            style="@style/SectionHeader" />
 
         <LinearLayout
             android:id="@+id/question_container"

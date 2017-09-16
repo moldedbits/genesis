@@ -54,9 +54,7 @@ class QuestionView : LinearLayout {
             for (option in question.options) {
                 val radioButton = AppCompatRadioButton(context)
                 radioButton.text = option
-                radioButton.setTextColor(ContextCompat.getColor(context, R.color.text_light))
-                CompoundButtonCompat.setButtonTintList(radioButton,
-                        ContextCompat.getColorStateList(context, R.color.text_light))
+                radioButton.setTextColor(ContextCompat.getColor(context, R.color.text_dark))
 
                 // Is this a correct option or not, store in a tag
                 radioButton.tag = option == question.answerText

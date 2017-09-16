@@ -19,7 +19,6 @@
             android:layout_marginStart="@dimen/margin_2x"
             android:layout_marginEnd="@dimen/margin_2x"
             android:layout_marginTop="@dimen/margin_2x"
-            android:layout_gravity="center_horizontal"
             style="@style/SectionHeader"
             tools:text="At the Airport"/>
 
