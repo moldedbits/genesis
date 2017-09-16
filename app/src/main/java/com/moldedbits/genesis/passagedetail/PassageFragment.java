@@ -18,15 +18,9 @@ import com.moldedbits.genesis.widgets.TranslatableTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.moldedbits.genesis.passagedetail.PassageDetailContracts.PassageViewContracts;
+public class PassageFragment extends BaseFragment {
 
-public class PassageFragment extends BaseFragment implements PassageViewContracts {
-
-    @BindView(R.id.passage_content)
-    View contentContainer;
-
-    @BindView(R.id.passage_progress)
-    View progressView;
+    private PassageDetails passageDetails;
 
     @BindView(R.id.passage_title)
     TranslatableTextView tvTitle;
@@ -49,18 +43,21 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
         return view;
     }
 
-    public void setPassage(String categoryKey, int passageIndex) {
-        PassageDetailPresenter passageDetailPresenter = new PassageDetailPresenter(this);
-        passageDetailPresenter.init(categoryKey, passageIndex);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (passageDetails != null) {
+            populateData(passageDetails);
+        }
     }
 
-    @Override
-    public void showContent() {
-        progressView.setVisibility(View.GONE);
-        contentContainer.setVisibility(View.VISIBLE);
+    public void setPassage(PassageDetails passageDetails) {
+        this.passageDetails = passageDetails;
+        if (tvTitle != null) {
+            populateData(passageDetails);
+        }
     }
 
-    @Override
     public void populateData(PassageDetails details) {
         // Title
         tvTitle.setText(details.getDisplayName());
