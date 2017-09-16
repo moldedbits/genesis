@@ -43,20 +43,19 @@ public class PassageActivity extends BaseActivity implements PassageContract.IVi
 
     private PassageListAdaptor adapter;
 
-    private String passageKey;
+    private String categoryKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passage);
         ButterKnife.bind(this);
-        adapter = new PassageListAdaptor(this, this);
-        passagePresenter = new PassagePresenter(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            passageKey = extras.getString(Utilities.CATEGORY_KEY);
-            passagePresenter.getPassages(passageKey);
+            passagePresenter = new PassagePresenter(this);
+            categoryKey = extras.getString(Utilities.CATEGORY_KEY);
+            passagePresenter.getPassages(categoryKey);
 
             String passageName = extras.getString(Utilities.CATEGORY_NAME);
             titleView.setText(passageName);
@@ -64,12 +63,15 @@ public class PassageActivity extends BaseActivity implements PassageContract.IVi
             Typeface typeface = Typeface.createFromAsset(am,
                     String.format(Locale.US, "fonts/%s", "timeburnerbold.ttf"));
             titleView.setTypeface(typeface);
+
+            adapter = new PassageListAdaptor(this, this, categoryKey);
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.refresh();
         adapter.notifyDataSetChanged();
     }
 
@@ -84,12 +86,12 @@ public class PassageActivity extends BaseActivity implements PassageContract.IVi
         contentContainer.setVisibility(View.VISIBLE);
 
         // Initialize progress in local storage
-        if (LocalStorage.getInstance().getCategoryProgress(passageKey) == null) {
+        if (LocalStorage.getInstance().getCategoryProgress(categoryKey) == null) {
             List<Boolean> completedPassages = new ArrayList<>(passages.size());
             for (int i=0; i<passages.size(); i++) {
                 completedPassages.add(false);
             }
-            CategoryProgress progress = new CategoryProgress(passageKey, completedPassages);
+            CategoryProgress progress = new CategoryProgress(categoryKey, completedPassages);
             LocalStorage.getInstance().storeCategoryProgress(progress);
         }
     }
@@ -97,7 +99,7 @@ public class PassageActivity extends BaseActivity implements PassageContract.IVi
     @Override
     public void onPassageSelected(int passageIndex) {
         Intent intent = new Intent(this, PassageDetailActivity.class);
-        intent.putExtra(Utilities.CATEGORY_KEY, passageKey);
+        intent.putExtra(Utilities.CATEGORY_KEY, categoryKey);
         intent.putExtra(Utilities.PASSAGE_INDEX, passageIndex);
         startActivity(intent);
     }

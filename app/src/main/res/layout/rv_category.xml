@@ -15,14 +15,30 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_2x">
 
-        <TextView
-            android:id="@+id/title_original"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_x"
-            android:textSize="@dimen/text_2x"
-            android:textColor="@color/text_dark"
-            tools:text="Presentándose" />
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/title_original"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/margin_x"
+                android:textSize="@dimen/text_2x"
+                android:textColor="@color/text_dark"
+                tools:text="Presentándose" />
+
+            <ImageView
+                android:id="@+id/status_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_done_white_18dp"
+                android:tint="@android:color/holo_green_dark"
+                android:visibility="gone"/>
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
