@@ -29,7 +29,7 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
     View progressView;
 
     @BindView(R.id.passage_title)
-    TextView tvTitle;
+    TranslatableTextView tvTitle;
 
     @BindView(R.id.tv_passage)
     TranslatableTextView tvPassage;
@@ -62,7 +62,7 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
     @Override
     public void populateData(PassageDetails details) {
         // Title
-        tvTitle.setText(details.getDisplayName().getSpanish());
+        tvTitle.setText(details.getDisplayName());
 
         // Passage
         tvPassage.setText(details.getPassageText().getSpanish(), details.getSentences());

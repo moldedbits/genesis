@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <TextView
+            <com.moldedbits.genesis.widgets.TranslatableTextView
                 android:id="@+id/passage_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="@dimen/margin_2x"
                 android:layout_marginBottom="@dimen/margin_2x"/>
 
-            <TextView
+            <com.moldedbits.genesis.widgets.TranslatableTextView
                 android:id="@+id/label_questions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

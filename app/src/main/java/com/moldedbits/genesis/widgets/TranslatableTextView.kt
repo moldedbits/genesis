@@ -1,7 +1,6 @@
 package com.moldedbits.genesis.widgets
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.widget.AppCompatTextView
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
@@ -14,8 +13,6 @@ import com.moldedbits.genesis.models.response.TranslatableString
 
 class TranslatableTextView : AppCompatTextView {
 
-    var translation: String = ""
-
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
@@ -24,8 +21,7 @@ class TranslatableTextView : AppCompatTextView {
             super(context, attrs, defStyleAttr)
 
     fun setText(translatableString: TranslatableString) {
-        text = translatableString.spanish
-        translation = translatableString.english
+        setText(translatableString.spanish, listOf(translatableString))
     }
 
     fun setText(passage: String, sentences: List<TranslatableString>) {
@@ -44,7 +40,7 @@ class TranslatableTextView : AppCompatTextView {
                 override fun updateDrawState(ds: TextPaint) {
                     super.updateDrawState(ds)
                     ds.isUnderlineText = false
-                    ds.color = Color.parseColor("#333333")
+                    ds.color = this@TranslatableTextView.currentTextColor
                 }
             }
 
