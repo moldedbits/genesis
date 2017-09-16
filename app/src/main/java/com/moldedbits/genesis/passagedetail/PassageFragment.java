@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.moldedbits.genesis.BaseFragment;
 import com.moldedbits.genesis.R;
 import com.moldedbits.genesis.models.response.PassageDetails;
 import com.moldedbits.genesis.models.response.Question;
+import com.moldedbits.genesis.models.response.TranslatableString;
 import com.moldedbits.genesis.widgets.QuestionView;
 import com.moldedbits.genesis.widgets.TranslatableTextView;
 
@@ -33,6 +33,9 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
 
     @BindView(R.id.tv_passage)
     TranslatableTextView tvPassage;
+
+    @BindView(R.id.label_questions)
+    TranslatableTextView labelQuestions;
 
     @BindView(R.id.question_container)
     LinearLayout questionContainer;
@@ -68,10 +71,16 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
         tvPassage.setText(details.getPassageText().getSpanish(), details.getSentences());
 
         // Populate questions
+        TranslatableString label = new TranslatableString(
+                getString(R.string.questions_english),
+                getString(R.string.questions_spanish));
+        labelQuestions.setText(label);
+
         questionContainer.removeAllViews();
-        for (Question question : details.getQuestions()) {
+        for (int i=0; i<details.getQuestions().size(); i++) {
+            Question question = details.getQuestions().get(i);
             QuestionView view = new QuestionView(getContext());
-            view.setQuestion(question);
+            view.setQuestion(i, question);
             questionContainer.addView(view);
         }
     }
