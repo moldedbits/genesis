@@ -1,18 +1,11 @@
 package com.moldedbits.genesis.passagedetail;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.SpannableStringBuilder;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.moldedbits.genesis.BaseFragment;
 import com.moldedbits.genesis.R;
@@ -20,6 +13,7 @@ import com.moldedbits.genesis.models.response.PassageDetails;
 import com.moldedbits.genesis.models.response.Question;
 import com.moldedbits.genesis.models.response.TranslatableString;
 import com.moldedbits.genesis.widgets.QuestionView;
+import com.moldedbits.genesis.widgets.TranslatableTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,62 +22,23 @@ import static com.moldedbits.genesis.passagedetail.PassageDetailContracts.Passag
 
 public class PassageFragment extends BaseFragment implements PassageViewContracts {
 
+    @BindView(R.id.passage_content)
+    View contentContainer;
+
+    @BindView(R.id.passage_progress)
+    View progressView;
+
     @BindView(R.id.passage_title)
-    TextView tvTitle;
+    TranslatableTextView tvTitle;
 
     @BindView(R.id.tv_passage)
-    TextView tvPassage;
+    TranslatableTextView tvPassage;
+
+    @BindView(R.id.label_questions)
+    TranslatableTextView labelQuestions;
 
     @BindView(R.id.question_container)
     LinearLayout questionContainer;
-
-    @Override
-    public void setupView() {
-
-    }
-
-    @Override
-    public void populateData(PassageDetails details) {
-        String passageText = details.getPassageText().getSpanish();
-
-        tvTitle.setText(details.getDisplayName().getSpanish());
-
-        SpannableStringBuilder text = new SpannableStringBuilder();
-        text.append(details.getPassageText().getSpanish());
-
-        for (final TranslatableString sentence : details.getSentences()) {
-            int startIndex = passageText.indexOf(sentence.getSpanish());
-            int endIndex = startIndex + sentence.getSpanish().length();
-
-            final ClickableSpan span = new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-                    Toast.makeText(getActivity(), sentence.getEnglish(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void updateDrawState(TextPaint ds) {
-                    super.updateDrawState(ds);
-                    ds.setUnderlineText(false);
-                    ds.setColor(Color.parseColor("#333333"));
-                }
-            };
-
-            text.setSpan(span, startIndex, endIndex,
-                    SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-
-        tvPassage.setText(text);
-        tvPassage.setMovementMethod(LinkMovementMethod.getInstance());
-
-        // Populate questions
-        questionContainer.removeAllViews();
-        for (Question question : details.getQuestions()) {
-            QuestionView view = new QuestionView(getContext());
-            view.setQuestion(question);
-            questionContainer.addView(view);
-        }
-    }
 
     @Nullable
     @Override
@@ -99,5 +54,34 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
         super.onActivityCreated(savedInstanceState);
         PassageDetailPresenter passageDetailPresenter = new PassageDetailPresenter(this);
         passageDetailPresenter.init();
+    }
+
+    @Override
+    public void showContent() {
+        progressView.setVisibility(View.GONE);
+        contentContainer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void populateData(PassageDetails details) {
+        // Title
+        tvTitle.setText(details.getDisplayName());
+
+        // Passage
+        tvPassage.setText(details.getPassageText().getSpanish(), details.getSentences());
+
+        // Populate questions
+        TranslatableString label = new TranslatableString(
+                getString(R.string.questions_english),
+                getString(R.string.questions_spanish));
+        labelQuestions.setText(label);
+
+        questionContainer.removeAllViews();
+        for (int i=0; i<details.getQuestions().size(); i++) {
+            Question question = details.getQuestions().get(i);
+            QuestionView view = new QuestionView(getContext());
+            view.setQuestion(i, question);
+            questionContainer.addView(view);
+        }
     }
 }

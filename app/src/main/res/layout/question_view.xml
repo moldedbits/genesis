@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding_2x">
 
-    <TextView
-        android:id="@+id/question_text"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_2x"
-        android:textSize="@dimen/text_2x"
-        tools:text="This is a question text for the passage?"/>
+        android:layout_marginBottom="@dimen/margin_2x">
 
-    <EditText
-        android:id="@+id/answer_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_2x"
-        android:hint="@string/answer"/>
+        <TextView
+            android:id="@+id/question_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_2x"
+            android:textColor="@color/text_light"
+            android:layout_marginEnd="@dimen/margin_x"
+            android:layout_marginRight="@dimen/margin_x"
+            tools:text="1."/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/question_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2x"
+                android:textSize="@dimen/text_2x"
+                android:textColor="@color/text_light"
+                tools:text="This is a question text for the passage?"/>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/answer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_2x"
+                android:textColor="@color/text_light"
+                android:textColorHint="@color/text_light"
+                app:backgroundTint="@color/text_light"
+                android:hint="@string/answer"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/multiple_choice"

@@ -5,7 +5,7 @@ import com.moldedbits.genesis.models.response.PassageDetails;
 public class PassageDetailContracts {
 
     interface PassageViewContracts {
-        void setupView();
+        void showContent();
 
         void populateData(PassageDetails details);
     }

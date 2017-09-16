@@ -18,11 +18,12 @@ public class PassageDetailPresenter implements PassageDetailContracts.Presenter,
     public void init() {
         BaseApplication.getFirebaseInteractor().setCallBacks(this);
         BaseApplication.getFirebaseInteractor()
-                .getDataPassageDetails("passageDetails", "four", 0);
+                .getDataPassageDetails("passageDetails", "one", 0);
     }
 
     @Override
     public void onDataPassagesFetched(PassageDetails passageDetails) {
         passageView.populateData(passageDetails);
+        passageView.showContent();
     }
 }

@@ -12,4 +12,5 @@
     <string name="something_went_wrong">Something went wrong.</string>
     <string name="answer">Answer</string>
     <string name="questions_spanish">Preguntas</string>
+    <string name="questions_english">Questions</string>
 </resources>
