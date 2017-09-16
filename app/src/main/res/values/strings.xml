@@ -10,4 +10,6 @@
     <string name="please_wait">Please wait</string>
     <string name="internet_slow_or_disconnected">No internet available or very slow.</string>
     <string name="something_went_wrong">Something went wrong.</string>
+    <string name="answer">Answer</string>
+    <string name="questions_spanish">Preguntas</string>
 </resources>
