@@ -73,7 +73,8 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.I
             return;
         }
         Intent intent = new Intent(this, PassageActivity.class);
-        intent.putExtra(Utilities.PASSAGE_KEY, categories.get(position).getKey());
+        intent.putExtra(Utilities.CATEGORY_KEY, categories.get(position).getKey());
+        intent.putExtra(Utilities.CATEGORY_NAME, categories.get(position).getName());
         startActivity(intent);
     }
 }

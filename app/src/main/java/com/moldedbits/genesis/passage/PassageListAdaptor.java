@@ -1,7 +1,6 @@
 package com.moldedbits.genesis.passage;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,64 +14,61 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Getter;
-import lombok.Setter;
 
-/**
- * Created by MOLDEDBITS on 15-09-2017.
- */
 
-public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.PassageViewHolder> {
+public class PassageListAdaptor extends RecyclerView.Adapter<PassageListAdaptor.PassageViewHolder>
+        implements View.OnClickListener {
 
     private final Context context;
     private List<Passage> passageList;
-    private PassageClickListener clickListener ;
+    private PassageSelectedListener passageSelectedListener;
 
-    PassageListAdaptor(Context context, PassageClickListener clickListener) {
+    PassageListAdaptor(Context context, PassageSelectedListener passageSelectedListener) {
         this.context = context;
-        this.clickListener = clickListener;
+        this.passageSelectedListener = passageSelectedListener;
     }
 
     @Override
     public PassageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.rv_passage, parent, false);
+                .inflate(R.layout.rv_category, parent, false);
         return new PassageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(PassageViewHolder holder, int position) {
         holder.tvCategoryName.setText(passageList.get(position).getDisplayName().getEnglish());
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
-            return passageList.size();
+        return passageList.size();
     }
 
-    public void setPassageList(List<Passage> passages) {
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        passageSelectedListener.onPassageSelected(position);
+    }
+
+    void setPassageList(List<Passage> passages) {
         this.passageList = passages;
     }
 
-    public interface PassageClickListener {
-        void onItemClick(View view, int position);
+    public interface PassageSelectedListener {
+        void onPassageSelected(int passageIndex);
     }
-    class PassageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.passage_name)
+    static class PassageViewHolder extends RecyclerView.ViewHolder  {
+
+        @BindView(R.id.title)
         TextView tvCategoryName;
-        @BindView(R.id.cvPassage)
-        CardView cvPassage;
 
         PassageViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-
         }
     }
 }

@@ -1,10 +1,9 @@
 package com.moldedbits.genesis.utils;
 
-/**
- * Created by MOLDEDBITS on 16-09-2017.
- */
-
 public class Utilities {
 
-    public static final String PASSAGE_KEY = "passagekey";
+    public static final String CATEGORY_KEY = "categoryKey";
+    public static final String CATEGORY_NAME = "categoryName";
+    public static final String PASSAGE_INDEX = "passageIndex";
+    public static final String FB_PASSAGE_DETAILS = "passageDetails";
 }

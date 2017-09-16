@@ -9,9 +9,4 @@ public class PassageDetailContracts {
 
         void populateData(PassageDetails details);
     }
-
-    interface Presenter {
-
-        void init();
-    }
 }

@@ -2,9 +2,9 @@ package com.moldedbits.genesis.passagedetail;
 
 import com.moldedbits.genesis.BaseApplication;
 import com.moldedbits.genesis.models.response.PassageDetails;
+import com.moldedbits.genesis.utils.Utilities;
 
-public class PassageDetailPresenter implements PassageDetailContracts.Presenter,
-        DatabaseCallbacks {
+public class PassageDetailPresenter implements DatabaseCallbacks {
 
     private final PassageDetailContracts.PassageViewContracts passageView;
 
@@ -12,13 +12,10 @@ public class PassageDetailPresenter implements PassageDetailContracts.Presenter,
         this.passageView = passageView;
     }
 
-    // TODO keys for passage details and index will be used from previous screen data,
-    // for testing purpose it is hardcoded
-    @Override
-    public void init() {
+    void init(String categoryKey, int passageIndex) {
         BaseApplication.getFirebaseInteractor().setCallBacks(this);
         BaseApplication.getFirebaseInteractor()
-                .getDataPassageDetails("passageDetails", "one", 0);
+                .getDataPassageDetails(Utilities.FB_PASSAGE_DETAILS, categoryKey, passageIndex);
     }
 
     @Override

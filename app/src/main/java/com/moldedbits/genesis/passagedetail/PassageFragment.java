@@ -49,11 +49,9 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
         return view;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void setPassage(String categoryKey, int passageIndex) {
         PassageDetailPresenter passageDetailPresenter = new PassageDetailPresenter(this);
-        passageDetailPresenter.init();
+        passageDetailPresenter.init(categoryKey, passageIndex);
     }
 
     @Override

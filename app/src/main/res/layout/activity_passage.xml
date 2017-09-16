@@ -3,21 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="@dimen/padding_2x">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/row_height_8x"
-        android:gravity="center"
-        android:text="@string/genesis"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_3x" />
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/padding_x"
+        tools:text="@string/genesis"
+        android:textSize="@dimen/text_4x"
+        android:textColor="@color/white"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvPassage"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/rv_category">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/content"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2x"
+                android:layout_marginBottom="@dimen/margin_2x"
+                android:text="@string/select_a_passage"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_2x"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPassage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/rv_category"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_4x"/>
+    </RelativeLayout>
 </LinearLayout>
