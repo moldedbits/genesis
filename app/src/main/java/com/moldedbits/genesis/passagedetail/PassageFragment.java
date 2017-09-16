@@ -1,5 +1,6 @@
 package com.moldedbits.genesis.passagedetail;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 import com.moldedbits.genesis.BaseFragment;
 import com.moldedbits.genesis.R;
 import com.moldedbits.genesis.models.response.PassageDetails;
+import com.moldedbits.genesis.models.response.Question;
+import com.moldedbits.genesis.models.response.TranslatableString;
+import com.moldedbits.genesis.widgets.QuestionView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,11 +28,14 @@ import static com.moldedbits.genesis.passagedetail.PassageDetailContracts.Passag
 
 public class PassageFragment extends BaseFragment implements PassageViewContracts {
 
+    @BindView(R.id.passage_title)
+    TextView tvTitle;
+
     @BindView(R.id.tv_passage)
     TextView tvPassage;
-    @BindView(R.id.ll_parent)
-    LinearLayout llParent;
-    private PassageDetailPresenter passageDetailPresenter;
+
+    @BindView(R.id.question_container)
+    LinearLayout questionContainer;
 
     @Override
     public void setupView() {
@@ -39,10 +46,12 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
     public void populateData(PassageDetails details) {
         String passageText = details.getPassageText().getSpanish();
 
+        tvTitle.setText(details.getDisplayName().getSpanish());
+
         SpannableStringBuilder text = new SpannableStringBuilder();
         text.append(details.getPassageText().getSpanish());
 
-        for (final PassageDetails.Sentence sentence : details.getSentences()) {
+        for (final TranslatableString sentence : details.getSentences()) {
             int startIndex = passageText.indexOf(sentence.getSpanish());
             int endIndex = startIndex + sentence.getSpanish().length();
 
@@ -56,6 +65,7 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
                 public void updateDrawState(TextPaint ds) {
                     super.updateDrawState(ds);
                     ds.setUnderlineText(false);
+                    ds.setColor(Color.parseColor("#333333"));
                 }
             };
 
@@ -65,11 +75,20 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
 
         tvPassage.setText(text);
         tvPassage.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // Populate questions
+        questionContainer.removeAllViews();
+        for (Question question : details.getQuestions()) {
+            QuestionView view = new QuestionView(getContext());
+            view.setQuestion(question);
+            questionContainer.addView(view);
+        }
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_passage, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -78,6 +97,7 @@ public class PassageFragment extends BaseFragment implements PassageViewContract
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        passageDetailPresenter = new PassageDetailPresenter(this);
+        PassageDetailPresenter passageDetailPresenter = new PassageDetailPresenter(this);
+        passageDetailPresenter.init();
     }
 }
