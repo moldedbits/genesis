@@ -31,36 +31,16 @@
             android:textSize="@dimen/text_2x"
             android:textColor="@android:color/black"
             android:lineSpacingMultiplier="1.4"
-            tools:text="This is a spanish passage but for testing purposes we are writing this in English." />
+            tools:text="This is a spanish passage but for testing purposes we are writing this
+             in English." />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginTop="@dimen/margin_2x" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/padding_4x"
-            android:background="@color/colorPrimary">
-
-            <com.moldedbits.genesis.widgets.TranslatableTextView
-                android:id="@+id/label_questions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_2x"
-                android:layout_marginEnd="@dimen/margin_2x"
-                android:layout_marginBottom="@dimen/margin_2x"
-                android:text="@string/questions_spanish"
-                style="@style/SectionHeader.Dark" />
-
-            <LinearLayout
-                android:id="@+id/question_container"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_marginTop="@dimen/margin_2x"
+            android:layout_marginBottom="@dimen/margin_2x"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/text_2x"
+            android:text="@string/fin"/>
     </LinearLayout>
 </ScrollView>

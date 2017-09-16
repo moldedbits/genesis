@@ -68,7 +68,7 @@ public class PassageDetailActivity extends BaseActivity implements PassageDetail
                 f.setPassage(passageDetails);
                 return f;
             } else {
-                PassageFragment f = new PassageFragment();
+                PassageQuestionsFragment f = new PassageQuestionsFragment();
                 f.setPassage(passageDetails);
                 return f;
             }
