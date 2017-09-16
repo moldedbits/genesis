@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.moldedbits.genesis.R;
 import com.moldedbits.genesis.models.Category;
+import com.moldedbits.genesis.utils.LocalStorage;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class CategoryListAdaptor
     private final Context context;
     private List<Category> categoryList;
     private CategoryClickListener clickListener;
+
+    LocalStorage localStorage = LocalStorage.getInstance();
 
     CategoryListAdaptor(Context context, CategoryClickListener clickListener) {
         this.context = context;
@@ -37,9 +40,10 @@ public class CategoryListAdaptor
 
     @Override
     public void onBindViewHolder(CategoriesViewHolder holder, int position) {
-        holder.categorySpanish.setText(categoryList.get(position).getName().getSpanish());
-        holder.categoryEnglish.setText(categoryList.get(position).getName().getEnglish());
-        holder.status.setText("Not started");
+        Category category = categoryList.get(position);
+        holder.categorySpanish.setText(category.getName().getSpanish());
+        holder.categoryEnglish.setText(category.getName().getEnglish());
+        holder.status.setText(localStorage.getCategoryProgressString(category.getKey()));
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }

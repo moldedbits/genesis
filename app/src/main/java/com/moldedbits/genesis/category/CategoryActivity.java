@@ -56,6 +56,12 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.I
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void showCategories(List<Category> categories) {
         this.categories = categories;
         adapter.setCategoriesList(categories);

@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import com.moldedbits.genesis.BaseActivity;
 import com.moldedbits.genesis.R;
+import com.moldedbits.genesis.models.CategoryProgress;
 import com.moldedbits.genesis.models.Passage;
 import com.moldedbits.genesis.passagedetail.PassageDetailActivity;
+import com.moldedbits.genesis.utils.LocalStorage;
 import com.moldedbits.genesis.utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,6 +68,12 @@ public class PassageActivity extends BaseActivity implements PassageContract.IVi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void showPassages(List<Passage> passages) {
         adapter.setPassageList(passages);
         passageRecyclerView.setAdapter(adapter);
@@ -73,6 +82,16 @@ public class PassageActivity extends BaseActivity implements PassageContract.IVi
 
         progressView.setVisibility(View.GONE);
         contentContainer.setVisibility(View.VISIBLE);
+
+        // Initialize progress in local storage
+        if (LocalStorage.getInstance().getCategoryProgress(passageKey) == null) {
+            List<Boolean> completedPassages = new ArrayList<>(passages.size());
+            for (int i=0; i<passages.size(); i++) {
+                completedPassages.add(false);
+            }
+            CategoryProgress progress = new CategoryProgress(passageKey, completedPassages);
+            LocalStorage.getInstance().storeCategoryProgress(progress);
+        }
     }
 
     @Override

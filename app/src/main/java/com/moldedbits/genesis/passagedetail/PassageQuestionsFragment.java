@@ -9,18 +9,24 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.moldedbits.genesis.R;
+import com.moldedbits.genesis.models.CategoryProgress;
 import com.moldedbits.genesis.models.response.PassageDetails;
 import com.moldedbits.genesis.models.response.Question;
 import com.moldedbits.genesis.models.response.TranslatableString;
+import com.moldedbits.genesis.utils.LocalStorage;
 import com.moldedbits.genesis.widgets.QuestionView;
 import com.moldedbits.genesis.widgets.TranslatableTextView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PassageQuestionsFragment extends Fragment {
+public class PassageQuestionsFragment extends Fragment implements QuestionView.QuestionListener {
 
     private PassageDetails passageDetails;
+    private int passageIndex;
+    private String categoryKey;
 
     @BindView(R.id.label_questions)
     TranslatableTextView labelQuestions;
@@ -46,8 +52,11 @@ public class PassageQuestionsFragment extends Fragment {
         }
     }
 
-    public void setPassage(PassageDetails passageDetails) {
+    public void setPassage(String categoryKey, int passageIndex, PassageDetails passageDetails) {
         this.passageDetails = passageDetails;
+        this.categoryKey = categoryKey;
+        this.passageIndex = passageIndex;
+
         if (labelQuestions != null) {
             populateData(passageDetails);
         }
@@ -64,8 +73,28 @@ public class PassageQuestionsFragment extends Fragment {
         for (int i=0; i<details.getQuestions().size(); i++) {
             Question question = details.getQuestions().get(i);
             QuestionView view = new QuestionView(getContext());
+            view.setListener(this);
             view.setQuestion(i + 1, question);
             questionContainer.addView(view);
+        }
+    }
+
+    @Override
+    public void onAnswered() {
+        for (int i=0; i<questionContainer.getChildCount(); i++) {
+            QuestionView view = (QuestionView) questionContainer.getChildAt(i);
+            if (!view.isAnswered()) {
+                // Some questions are not answered yet
+                return;
+            }
+
+            // All questions are answered, store in database
+            LocalStorage localStorage = LocalStorage.getInstance();
+            CategoryProgress progress = localStorage.getCategoryProgress(categoryKey);
+            List<Boolean> completedPassages = progress.getCompletedPassages();
+            completedPassages.set(passageIndex, true);
+            progress.setCompletedPassages(completedPassages);
+            localStorage.storeCategoryProgress(progress);
         }
     }
 }

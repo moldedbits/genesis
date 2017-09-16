@@ -3,7 +3,13 @@ package com.moldedbits.genesis.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
 import com.moldedbits.genesis.BaseApplication;
+import com.moldedbits.genesis.models.CategoryProgress;
+
+import java.util.Locale;
+
+import timber.log.Timber;
 
 /**
  * Created by abhishek
@@ -19,13 +25,51 @@ public class LocalStorage {
         return instance;
     }
 
-    // TODO: 05/04/16 find a way to make this variable and app specific
-    // TODO: 05/04/16 may be get application id somehow and append to this
-    private static final String PREFS_NAME = "com.moldedbits.SharedPrefs";
+    private static final String PREFS_NAME = "com.moldedbits.genesis.SharedPrefs";
 
     private LocalStorage() {
         preferences = BaseApplication.getInstance().getSharedPreferences(PREFS_NAME,
                 Context.MODE_PRIVATE);
+    }
+
+    public void storeCategoryProgress(CategoryProgress progress) {
+        Gson gson = new Gson();
+        Timber.d("Storing progress: %s", gson.toJson(progress));
+        preferences.edit().putString(progress.getCategoryKey(), gson.toJson(progress)).apply();
+    }
+
+    public String getCategoryProgressString(String categoryKey) {
+        if (!preferences.contains(categoryKey)) {
+            return "Not started";
+        }
+
+        CategoryProgress progress = getCategoryProgress(categoryKey);
+
+        int totalCount = progress.getCompletedPassages().size();
+        int completedCount = 0;
+
+        for (Boolean bool : progress.getCompletedPassages()) {
+            if (bool) {
+                completedCount++;
+            }
+        }
+
+        if (completedCount == 0) {
+            return "Not started";
+        } else if (completedCount == totalCount) {
+            return "Completed";
+        } else {
+            return String.format(Locale.US, "Completed %d of %d", completedCount, totalCount);
+        }
+    }
+
+    public CategoryProgress getCategoryProgress(String categoryKey) {
+        if (!preferences.contains(categoryKey)) {
+            return null;
+        }
+
+        Gson gson = new Gson();
+        return gson.fromJson(preferences.getString(categoryKey, null), CategoryProgress.class);
     }
 
     public void storeData(String key, String value) {

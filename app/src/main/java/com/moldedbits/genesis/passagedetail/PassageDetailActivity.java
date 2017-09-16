@@ -23,6 +23,9 @@ public class PassageDetailActivity extends BaseActivity implements PassageDetail
     @BindView(R.id.progress)
     View progressView;
 
+    private String categoryKey;
+    private int passageIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +34,8 @@ public class PassageDetailActivity extends BaseActivity implements PassageDetail
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String categoryKey = extras.getString(Utilities.CATEGORY_KEY);
-            int passageIndex = extras.getInt(Utilities.PASSAGE_INDEX);
+            categoryKey = extras.getString(Utilities.CATEGORY_KEY);
+            passageIndex = extras.getInt(Utilities.PASSAGE_INDEX);
 
             PassageDetailPresenter presenter = new PassageDetailPresenter(this);
             presenter.init(categoryKey, passageIndex);
@@ -69,7 +72,7 @@ public class PassageDetailActivity extends BaseActivity implements PassageDetail
                 return f;
             } else {
                 PassageQuestionsFragment f = new PassageQuestionsFragment();
-                f.setPassage(passageDetails);
+                f.setPassage(categoryKey, passageIndex, passageDetails);
                 return f;
             }
         }
