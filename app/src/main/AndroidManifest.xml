@@ -10,12 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ExampleAppActivity"
+        <activity android:name=".category.CategoryActivity"
                   android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".passage.PassageActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".ExampleAppActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 </manifest>
