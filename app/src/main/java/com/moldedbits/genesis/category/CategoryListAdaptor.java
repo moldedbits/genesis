@@ -24,7 +24,7 @@ public class CategoryListAdaptor
     private List<Category> categoryList;
     private CategoryClickListener clickListener;
 
-    LocalStorage localStorage = LocalStorage.getInstance();
+    private LocalStorage localStorage = LocalStorage.getInstance();
 
     CategoryListAdaptor(Context context, CategoryClickListener clickListener) {
         this.context = context;
