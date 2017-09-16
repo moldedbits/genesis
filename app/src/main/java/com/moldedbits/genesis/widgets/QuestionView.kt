@@ -3,7 +3,10 @@ package com.moldedbits.genesis.widgets
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.CompoundButtonCompat
+import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.AppCompatRadioButton
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +18,9 @@ import com.moldedbits.genesis.models.response.Question
 
 class QuestionView : LinearLayout {
 
+    private val answerText: TextView
+    private val submitButton: AppCompatImageButton
+
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -24,6 +30,8 @@ class QuestionView : LinearLayout {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.question_view, this)
+        answerText = findViewById(R.id.answer_text) as TextView
+        submitButton = findViewById(R.id.btn_submit) as AppCompatImageButton
     }
 
     fun setQuestion(count: Int, question: Question) {
@@ -51,9 +59,48 @@ class QuestionView : LinearLayout {
         } else {
             findViewById(R.id.multiple_choice).visibility = View.GONE
 
-            val answerText = findViewById(R.id.answer_text) as TextView
             answerText.text = ""
             answerText.visibility = View.VISIBLE
+
+            submitButton.isEnabled = false
+            submitButton.setOnClickListener { checkAnswer(question) }
+
+            answerText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    submitButton.isEnabled = s != null && !s.isBlank()
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
         }
+    }
+
+    private fun checkAnswer(question: Question) {
+        val answer = answerText.text
+        for (option in question.options) {
+            if (option.equals(answer.toString(), true)) {
+                onCorrectAnswer()
+                return
+            }
+        }
+
+        onWrongAnswer(question.options[0])
+    }
+
+    private fun onCorrectAnswer() {
+        answerText.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark))
+        answerText.isEnabled = false
+        submitButton.visibility = View.GONE
+    }
+
+    private fun onWrongAnswer(correctAnswer: String) {
+        answerText.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+        answerText.text = correctAnswer
+        answerText.isEnabled = false
+        submitButton.visibility = View.GONE
     }
 }
