@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.moldedbits.genesis">
+    package="com.moldedbits.genesis">
 
     <application
         android:name=".BaseApplication"
@@ -10,19 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".category.CategoryActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".category.CategoryActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".passage.PassageActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
 
-        <activity android:name=".ExampleAppActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".ExampleAppActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".passagedetail.PassageDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".passage.PassageActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 </manifest>
