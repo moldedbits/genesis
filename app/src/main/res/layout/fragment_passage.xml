@@ -5,53 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ll_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/passage_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2x"
-            android:layout_marginEnd="@dimen/margin_2x"
-            android:layout_marginTop="@dimen/margin_2x"
-            style="@style/SectionHeader"
-            tools:text="At the Airport"/>
-
-        <TextView
-            android:id="@+id/tv_passage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_2x"
-            android:textSize="@dimen/text_2x"
-            android:textColor="@android:color/black"
-            android:lineSpacingMultiplier="1.4"
-            tools:text="asdsadsadsad" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginTop="@dimen/margin_2x"
-            android:layout_marginBottom="@dimen/margin_2x"/>
-
-        <TextView
-            android:id="@+id/label_questions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2x"
-            android:layout_marginEnd="@dimen/margin_2x"
-            android:layout_marginBottom="@dimen/margin_2x"
-            android:text="@string/questions_spanish"
-            style="@style/SectionHeader"/>
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/question_container"
-            android:orientation="vertical"
+            android:id="@+id/passage_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_6x"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/passage_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_2x"
+                android:layout_marginEnd="@dimen/margin_2x"
+                android:layout_marginTop="@dimen/margin_2x"
+                android:layout_gravity="center_horizontal"
+                style="@style/SectionHeader"
+                tools:text="At the Airport"/>
+
+            <com.moldedbits.genesis.widgets.TranslatableTextView
+                android:id="@+id/tv_passage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_2x"
+                android:textSize="@dimen/text_2x"
+                android:textColor="@android:color/black"
+                android:lineSpacingMultiplier="1.4"
+                tools:text="This is a spanish passage but for testing purposes we are writing this in English." />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginTop="@dimen/margin_2x"
+                android:layout_marginBottom="@dimen/margin_2x"/>
+
+            <TextView
+                android:id="@+id/label_questions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_2x"
+                android:layout_marginEnd="@dimen/margin_2x"
+                android:layout_marginBottom="@dimen/margin_2x"
+                android:text="@string/questions_spanish"
+                style="@style/SectionHeader"/>
+
+            <LinearLayout
+                android:id="@+id/question_container"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/passage_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_8x"/>
+    </RelativeLayout>
 </ScrollView>

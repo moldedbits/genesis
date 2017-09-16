@@ -24,5 +24,6 @@ public class PassageDetailPresenter implements PassageDetailContracts.Presenter,
     @Override
     public void onDataPassagesFetched(PassageDetails passageDetails) {
         passageView.populateData(passageDetails);
+        passageView.showContent();
     }
 }
