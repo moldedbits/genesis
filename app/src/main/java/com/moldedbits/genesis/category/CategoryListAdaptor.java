@@ -15,7 +15,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdaptor.CategoriesViewHolder> {
+public class CategoryListAdaptor
+        extends RecyclerView.Adapter<CategoryListAdaptor.CategoriesViewHolder>
+        implements View.OnClickListener {
 
     private final Context context;
     private List<Category> categoryList;
@@ -34,14 +36,15 @@ public class CategoryListAdaptor extends RecyclerView.Adapter<CategoryListAdapto
     }
 
     @Override
-    public void onBindViewHolder(CategoriesViewHolder holder, final int position) {
+    public void onBindViewHolder(CategoriesViewHolder holder, int position) {
         holder.tvCategoryName.setText(categoryList.get(position).getName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onItemClick(v, position);
-            }
-        });
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        clickListener.onItemClick(v, (Integer) v.getTag());
     }
 
     @Override
