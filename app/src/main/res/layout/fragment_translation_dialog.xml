@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_x">
+
+    <Button
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/padding_x"
+        android:layout_marginEnd="@dimen/margin_x"
+        android:layout_marginRight="@dimen/margin_x"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="@string/x"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_2x"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/text_translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_x"
+            android:layout_marginLeft="@dimen/margin_2x"
+            android:layout_marginRight="@dimen/margin_2x"
+            android:textSize="@dimen/text_2x"
+            android:textStyle="bold"
+            android:textColor="@color/text_dark"
+            tools:text="Translated String"/>
+
+        <TextView
+            android:id="@+id/text_original"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_normal"
+            tools:text="Original String"/>
+    </LinearLayout>
+</RelativeLayout>

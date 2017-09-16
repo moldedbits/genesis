@@ -1,10 +1,13 @@
 package com.moldedbits.genesis.passagedetail;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.moldedbits.genesis.BaseActivity;
@@ -16,6 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PassageDetailActivity extends BaseActivity implements PassageDetailContracts.PassageViewContracts {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.tabs)
+    TabLayout tabs;
 
     @BindView(R.id.view_pager)
     ViewPager pager;
@@ -32,6 +41,12 @@ public class PassageDetailActivity extends BaseActivity implements PassageDetail
         setContentView(R.layout.activity_passage_detail);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             categoryKey = extras.getString(Utilities.CATEGORY_KEY);
@@ -40,6 +55,8 @@ public class PassageDetailActivity extends BaseActivity implements PassageDetail
             PassageDetailPresenter presenter = new PassageDetailPresenter(this);
             presenter.init(categoryKey, passageIndex);
         }
+
+        tabs.setupWithViewPager(pager);
     }
 
     @Override
