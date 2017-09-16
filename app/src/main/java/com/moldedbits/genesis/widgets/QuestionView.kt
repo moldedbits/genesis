@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import com.moldedbits.genesis.R
@@ -20,6 +21,9 @@ class QuestionView : LinearLayout {
 
     private val answerText: TextView
     private val submitButton: AppCompatImageButton
+    private val multipleContainer: RadioGroup
+    private val correctColor: Int
+    private val wrongColor: Int
 
     constructor(context: Context) : super(context)
 
@@ -32,6 +36,10 @@ class QuestionView : LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.question_view, this)
         answerText = findViewById(R.id.answer_text) as TextView
         submitButton = findViewById(R.id.btn_submit) as AppCompatImageButton
+        multipleContainer = findViewById(R.id.multiple_choice) as RadioGroup
+
+        correctColor = ContextCompat.getColor(context, android.R.color.holo_green_dark)
+        wrongColor = ContextCompat.getColor(context, android.R.color.holo_red_dark)
     }
 
     fun setQuestion(count: Int, question: Question) {
@@ -41,7 +49,6 @@ class QuestionView : LinearLayout {
         if (question.type.equals("multiple_choice", true)) {
             findViewById(R.id.answer_text_container).visibility = View.GONE
 
-            val multipleContainer = findViewById(R.id.multiple_choice) as RadioGroup
             multipleContainer.visibility = View.VISIBLE
             multipleContainer.removeAllViews()
             for (option in question.options) {
@@ -53,6 +60,18 @@ class QuestionView : LinearLayout {
 
                 // Is this a correct option or not, store in a tag
                 radioButton.tag = option == question.answerText
+
+                radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+                    run {
+                        if (isChecked) {
+                            if (buttonView.tag as Boolean) {
+                                onCorrectOptionSelected()
+                            } else {
+                                onWrongOptionSelected(buttonView as RadioButton)
+                            }
+                        }
+                    }
+                }
 
                 multipleContainer.addView(radioButton)
             }
@@ -93,15 +112,39 @@ class QuestionView : LinearLayout {
     }
 
     private fun onCorrectAnswer() {
-        answerText.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark))
+        answerText.setTextColor(correctColor)
         answerText.isEnabled = false
         submitButton.visibility = View.GONE
     }
 
     private fun onWrongAnswer(correctAnswer: String) {
-        answerText.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+        answerText.setTextColor(wrongColor)
         answerText.text = correctAnswer
         answerText.isEnabled = false
         submitButton.visibility = View.GONE
+    }
+
+    private fun onCorrectOptionSelected() {
+        (0 until multipleContainer.childCount)
+                .map { multipleContainer.getChildAt(it) as RadioButton }
+                .forEach {
+                    it.isEnabled = false
+                    if(it.tag as Boolean) {
+                        it.setTextColor(correctColor)
+                    }
+                }
+    }
+
+    private fun onWrongOptionSelected(wrongView: RadioButton) {
+        (0 until multipleContainer.childCount)
+                .map { multipleContainer.getChildAt(it) as RadioButton }
+                .forEach {
+                    it.isEnabled = false
+                    if (it == wrongView) {
+                        it.setTextColor(wrongColor)
+                    } else if (it.tag as Boolean) {
+                        it.setTextColor(correctColor)
+                    }
+                }
     }
 }
