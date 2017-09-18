@@ -65,6 +65,7 @@ public class PassageFragment extends BaseFragment implements
 
     @Override
     public void onClick(@NonNull String original, @NotNull String translation) {
-        TranslationDialog.newInstance(original, translation).show(getFragmentManager(), "Translation");
+        tvPassage.highlight(original);
+        // TranslationDialog.newInstance(original, translation).show(getFragmentManager(), "Translation");
     }
 }

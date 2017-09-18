@@ -5,10 +5,13 @@ import android.support.v7.widget.AppCompatTextView
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
+import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import com.moldedbits.genesis.models.response.TranslatableString
+
 
 class TranslatableTextView : AppCompatTextView {
 
@@ -17,6 +20,8 @@ class TranslatableTextView : AppCompatTextView {
     }
 
     var clickListener: TranslatableClickListener? = null
+
+    val spans: MutableList<SpanContainer> = mutableListOf()
 
     constructor(context: Context) : super(context)
 
@@ -34,9 +39,21 @@ class TranslatableTextView : AppCompatTextView {
     }
 
     fun setText(passage: String, sentences: List<TranslatableString>) {
+        initSpans(passage, sentences)
+
         val builder = SpannableStringBuilder()
         builder.append(passage)
 
+        for ((span, startIndex, endIndex) in spans) {
+            builder.setSpan(span, startIndex, endIndex,
+                    SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        text = builder
+        movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun initSpans(passage: String, sentences: List<TranslatableString>) {
         for ((english, spanish) in sentences) {
             val startIndex = passage.indexOf(spanish)
             val endIndex = startIndex + spanish.length
@@ -53,11 +70,19 @@ class TranslatableTextView : AppCompatTextView {
                 }
             }
 
-            builder.setSpan(span, startIndex, endIndex,
-                    SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spans.add(SpanContainer(span, startIndex, endIndex))
         }
-
-        text = builder
-        movementMethod = LinkMovementMethod.getInstance()
     }
+
+    fun highlight(toHighlight: String) {
+        val startIndex = text.indexOf(toHighlight)
+        val endIndex = startIndex + toHighlight.length
+
+        val builder = SpannableStringBuilder(text)
+        builder.setSpan(UnderlineSpan(), startIndex, endIndex,
+                SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
+        text = builder
+    }
+
+    data class SpanContainer(val span: CharacterStyle, val startIndex: Int, val endIndex: Int)
 }
