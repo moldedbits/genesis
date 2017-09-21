@@ -94,23 +94,21 @@ class TranslatableTextView : AppCompatTextView {
         builder.setSpan(highlightSpan, startIndex, endIndex,
                 SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        text = builder
-
-        postDelayed({
-            if (layout == null) {
-                Timber.d("Layout is null")
-            } else {
-                // Get left most position
-                var x = layout.getPrimaryHorizontal(startIndex).toInt()
-                for (i in startIndex until endIndex) {
-                    x = minOf(x, layout.getPrimaryHorizontal(i).toInt())
-                }
-
-                val y = layout.getLineTop(layout.getLineForOffset(endIndex))
-                clickListener?.onClick(toHighlight, translation, x, y)
-                Timber.d("Position is %d, %d", x, y)
+        if (layout == null) {
+            Timber.d("Layout is null")
+        } else {
+            // Get left most position
+            var x = layout.getPrimaryHorizontal(startIndex).toInt()
+            for (i in startIndex until endIndex) {
+                x = minOf(x, layout.getPrimaryHorizontal(i).toInt())
             }
-        }, 100)
+
+            val y = layout.getLineTop(layout.getLineForOffset(endIndex))
+            clickListener?.onClick(toHighlight, translation, x, y)
+            Timber.d("Position is %d, %d", x, y)
+        }
+
+        text = builder
     }
 
     fun removeHighlight() {
