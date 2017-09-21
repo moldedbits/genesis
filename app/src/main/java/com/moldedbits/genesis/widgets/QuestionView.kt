@@ -170,7 +170,7 @@ class QuestionView : LinearLayout, TranslatableTextView.TranslatableClickListene
         listener?.onAnswered()
     }
 
-    override fun onClick(original: String, translation: String) {
+    override fun onClick(original: String, translation: String, x: Int, y: Int) {
         listener?.onTranslationRequested(original, translation)
     }
 }

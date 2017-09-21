@@ -109,7 +109,7 @@ public class PassageQuestionsFragment extends Fragment implements QuestionView.Q
     }
 
     @Override
-    public void onClick(@NotNull String original, @NotNull String translation) {
+    public void onClick(@NotNull String original, @NotNull String translation, int x, int y) {
         TranslationDialog.newInstance(original, translation).show(getFragmentManager(), "Translation");
     }
 }

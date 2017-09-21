@@ -16,8 +16,8 @@
             android:id="@+id/passage_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2x"
-            android:layout_marginEnd="@dimen/margin_2x"
+            android:paddingStart="@dimen/padding_2x"
+            android:paddingEnd="@dimen/padding_2x"
             style="@style/SectionHeader"
             tools:text="At the Airport"/>
 
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_2x"
-            android:layout_marginBottom="@dimen/margin_2x"
+            android:layout_marginBottom="@dimen/margin_4x"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/text_2x"
             android:text="@string/fin"/>

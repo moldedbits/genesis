@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId "com.moldedbits.genesis"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode incrementVersionTask.getCurrentVersionCode()
         versionName incrementVersionTask.getCurrentVersionName()
