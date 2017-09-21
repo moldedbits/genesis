@@ -13,7 +13,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.moldedbits.genesis.R
 import com.moldedbits.genesis.models.response.TranslatableString
-import timber.log.Timber
 
 
 class TranslatableTextView : AppCompatTextView {
@@ -94,19 +93,14 @@ class TranslatableTextView : AppCompatTextView {
         builder.setSpan(highlightSpan, startIndex, endIndex,
                 SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        if (layout == null) {
-            Timber.d("Layout is null")
-        } else {
-            // Get left most position
-            var x = layout.getPrimaryHorizontal(startIndex).toInt()
-            for (i in startIndex until endIndex) {
-                x = minOf(x, layout.getPrimaryHorizontal(i).toInt())
-            }
-
-            val y = layout.getLineTop(layout.getLineForOffset(endIndex))
-            clickListener?.onClick(toHighlight, translation, x, y)
-            Timber.d("Position is %d, %d", x, y)
+        // Get left most position
+        var x = layout.getPrimaryHorizontal(startIndex).toInt()
+        for (i in startIndex until endIndex) {
+            x = minOf(x, layout.getPrimaryHorizontal(i).toInt())
         }
+
+        val y = layout.getLineTop(layout.getLineForOffset(endIndex))
+        clickListener?.onClick(toHighlight, translation, x, y)
 
         text = builder
     }
