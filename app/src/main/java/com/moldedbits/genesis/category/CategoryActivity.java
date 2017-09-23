@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.moldedbits.genesis.BaseActivity;
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.Category;
+import com.moldedbits.languagetools.models.Category;
 import com.moldedbits.genesis.passage.PassageActivity;
 import com.moldedbits.genesis.utils.Utilities;
 

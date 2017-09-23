@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.CategoryProgress;
-import com.moldedbits.genesis.models.response.PassageDetails;
-import com.moldedbits.genesis.models.response.Question;
-import com.moldedbits.genesis.models.response.TranslatableString;
+import com.moldedbits.languagetools.models.CategoryProgress;
+import com.moldedbits.languagetools.models.response.PassageDetails;
+import com.moldedbits.languagetools.models.response.Question;
+import com.moldedbits.languagetools.models.TranslatableString;
 import com.moldedbits.genesis.utils.LocalStorage;
 import com.moldedbits.genesis.widgets.QuestionView;
-import com.moldedbits.genesis.widgets.TranslatableTextView;
+import com.moldedbits.languagetools.widgets.TranslatableTextView;
 import com.moldedbits.genesis.widgets.TranslationDialog;
 
 import org.jetbrains.annotations.NotNull;

@@ -1,7 +1,6 @@
 package com.moldedbits.genesis.passage;
 
-import com.moldedbits.genesis.models.Category;
-import com.moldedbits.genesis.models.Passage;
+import com.moldedbits.languagetools.models.Passage;
 
 import java.util.List;
 

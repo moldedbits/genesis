@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.moldedbits.genesis.BaseApplication;
-import com.moldedbits.genesis.models.CategoryProgress;
+import com.moldedbits.languagetools.models.CategoryProgress;
 
 import java.util.Locale;
 

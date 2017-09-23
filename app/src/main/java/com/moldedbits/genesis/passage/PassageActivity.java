@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.moldedbits.genesis.BaseActivity;
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.CategoryProgress;
-import com.moldedbits.genesis.models.Passage;
+import com.moldedbits.languagetools.models.CategoryProgress;
+import com.moldedbits.languagetools.models.Passage;
 import com.moldedbits.genesis.passagedetail.PassageDetailActivity;
 import com.moldedbits.genesis.utils.LocalStorage;
 import com.moldedbits.genesis.utils.Utilities;

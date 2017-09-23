@@ -1,6 +1,6 @@
 package com.moldedbits.genesis.category;
 
-import com.moldedbits.genesis.models.Category;
+import com.moldedbits.languagetools.models.Category;
 
 import java.util.List;
 

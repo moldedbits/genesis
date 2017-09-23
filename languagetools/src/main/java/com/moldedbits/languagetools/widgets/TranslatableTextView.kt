@@ -1,4 +1,4 @@
-package com.moldedbits.genesis.widgets
+package com.moldedbits.languagetools.widgets
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -11,8 +11,9 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.view.View
-import com.moldedbits.genesis.R
-import com.moldedbits.genesis.models.response.TranslatableString
+import com.moldedbits.languagetools.R
+import com.moldedbits.languagetools.models.TranslatableString
+import timber.log.Timber
 
 
 class TranslatableTextView : AppCompatTextView {
@@ -25,6 +26,8 @@ class TranslatableTextView : AppCompatTextView {
 
     private val spans: MutableList<SpanContainer> = mutableListOf()
     private var highlightSpan: ForegroundColorSpan? = null
+
+    var accentColor: Int = ContextCompat.getColor(context, R.color.colorAccent)
 
     constructor(context: Context) : super(context)
 
@@ -84,8 +87,7 @@ class TranslatableTextView : AppCompatTextView {
         val builder = SpannableStringBuilder(text)
 
         if (highlightSpan == null) {
-            val highlightColor = ContextCompat.getColor(context, R.color.colorAccent)
-            highlightSpan = ForegroundColorSpan(highlightColor)
+            highlightSpan = ForegroundColorSpan(accentColor)
         } else {
             builder.removeSpan(highlightSpan)
         }
@@ -101,6 +103,7 @@ class TranslatableTextView : AppCompatTextView {
 
         val y = layout.getLineTop(layout.getLineForOffset(endIndex))
         clickListener?.onClick(toHighlight, translation, x, y)
+        Timber.d("Position is %d, %d", x, y)
 
         text = builder
     }
@@ -114,26 +117,4 @@ class TranslatableTextView : AppCompatTextView {
     }
 
     data class SpanContainer(val span: CharacterStyle, val startIndex: Int, val endIndex: Int)
-
-//    class HighlightSpan(private val backgroundColor: Int,
-//                        private val padding: Int) : LineBackgroundSpan {
-//
-//        private val bgRect = Rect()
-//
-//        override fun drawBackground(c: Canvas?, p: Paint?, left: Int, right: Int, top: Int,
-//                                    baseline: Int, bottom: Int, text: CharSequence?, start: Int,
-//                                    end: Int, lnum: Int) {
-//            Timber.d("Highlighting \"%s\"", text?.substring(start, end))
-//            val textWidth = Math.round(p!!.measureText(text, start, end))
-//            val paintColor = p.color
-//            // Draw the background
-//            bgRect.set(left - padding,
-//                    top - if (lnum == 0) padding / 2 else -(padding / 2),
-//                    left + textWidth + padding,
-//                    bottom + padding / 2)
-//            p.color = backgroundColor
-//            c?.drawRect(bgRect, p)
-//            p.color = paintColor
-//        }
-//    }
 }

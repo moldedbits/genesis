@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.moldedbits.genesis.BaseFragment;
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.response.PassageDetails;
+import com.moldedbits.languagetools.models.response.PassageDetails;
 import com.moldedbits.genesis.utils.Utilities;
-import com.moldedbits.genesis.widgets.TranslatableTextView;
+import com.moldedbits.languagetools.widgets.TranslatableTextView;
 
 import org.jetbrains.annotations.NotNull;
 

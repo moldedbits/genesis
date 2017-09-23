@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/padding_4x">
 
-        <com.moldedbits.genesis.widgets.TranslatableTextView
+        <com.moldedbits.languagetools.widgets.TranslatableTextView
             android:id="@+id/label_questions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

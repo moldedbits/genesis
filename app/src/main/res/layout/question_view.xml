@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.moldedbits.genesis.widgets.TranslatableTextView
+            <com.moldedbits.languagetools.widgets.TranslatableTextView
                 android:id="@+id/question_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

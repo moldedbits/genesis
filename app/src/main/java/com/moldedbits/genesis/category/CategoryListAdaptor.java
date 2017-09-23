@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.Category;
+import com.moldedbits.languagetools.models.Category;
 import com.moldedbits.genesis.utils.LocalStorage;
 
 import java.util.List;

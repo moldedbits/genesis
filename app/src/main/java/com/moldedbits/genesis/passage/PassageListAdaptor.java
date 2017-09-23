@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.CategoryProgress;
-import com.moldedbits.genesis.models.Passage;
+import com.moldedbits.languagetools.models.CategoryProgress;
+import com.moldedbits.languagetools.models.Passage;
 import com.moldedbits.genesis.utils.LocalStorage;
 
 import java.util.List;

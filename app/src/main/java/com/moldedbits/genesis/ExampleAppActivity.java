@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.moldedbits.genesis.models.Category;
+import com.moldedbits.languagetools.models.Category;
 
 import timber.log.Timber;
 

@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.moldedbits.genesis.BaseActivity;
 import com.moldedbits.genesis.R;
-import com.moldedbits.genesis.models.response.PassageDetails;
+import com.moldedbits.languagetools.models.response.PassageDetails;
 import com.moldedbits.genesis.utils.Utilities;
 
 import butterknife.BindView;

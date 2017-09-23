@@ -14,7 +14,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import com.moldedbits.genesis.R
-import com.moldedbits.genesis.models.response.Question
+import com.moldedbits.languagetools.models.response.Question
+import com.moldedbits.languagetools.widgets.TranslatableTextView
 
 class QuestionView : LinearLayout, TranslatableTextView.TranslatableClickListener {
 
@@ -42,9 +43,9 @@ class QuestionView : LinearLayout, TranslatableTextView.TranslatableClickListene
 
     init {
         LayoutInflater.from(context).inflate(R.layout.question_view, this)
-        answerText = findViewById(R.id.answer_text) as TextView
-        submitButton = findViewById(R.id.btn_submit) as AppCompatImageButton
-        multipleContainer = findViewById(R.id.multiple_choice) as RadioGroup
+        answerText = findViewById(R.id.answer_text)
+        submitButton = findViewById(R.id.btn_submit)
+        multipleContainer = findViewById(R.id.multiple_choice)
 
         correctColor = ContextCompat.getColor(context, android.R.color.holo_green_dark)
         wrongColor = ContextCompat.getColor(context, android.R.color.holo_red_dark)
@@ -55,14 +56,14 @@ class QuestionView : LinearLayout, TranslatableTextView.TranslatableClickListene
     }
 
     fun setQuestion(count: Int, question: Question) {
-        val questionTextView = (findViewById(R.id.question_text) as TranslatableTextView)
+        val questionTextView: TranslatableTextView = findViewById(R.id.question_text)
         questionTextView.setText(question.questionText)
         questionTextView.setTranslatableClickListener(this)
 
-        (findViewById(R.id.question_count) as TextView).text = (count.toString() + ".")
+        (findViewById<TextView>(R.id.question_count)).text = (count.toString() + ".")
 
         if (question.type.equals("multiple_choice", true)) {
-            findViewById(R.id.answer_text_container).visibility = View.GONE
+            (findViewById<View>(R.id.answer_text_container)).visibility = View.GONE
 
             multipleContainer.visibility = View.VISIBLE
             multipleContainer.removeAllViews()
@@ -90,8 +91,8 @@ class QuestionView : LinearLayout, TranslatableTextView.TranslatableClickListene
                 multipleContainer.addView(radioButton)
             }
         } else {
-            findViewById(R.id.multiple_choice).visibility = View.GONE
-            findViewById(R.id.answer_text_container).visibility = View.VISIBLE
+            (findViewById<View>(R.id.multiple_choice)).visibility = View.GONE
+            (findViewById<View>(R.id.answer_text_container)).visibility = View.VISIBLE
 
             answerText.text = ""
             answerText.visibility = View.VISIBLE

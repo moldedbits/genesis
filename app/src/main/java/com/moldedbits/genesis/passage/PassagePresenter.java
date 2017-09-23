@@ -6,9 +6,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.moldedbits.genesis.models.Category;
-import com.moldedbits.genesis.models.Passage;
-import com.moldedbits.genesis.models.response.PassageDetails;
+import com.moldedbits.languagetools.models.Passage;
 
 import java.util.ArrayList;
 import java.util.List;

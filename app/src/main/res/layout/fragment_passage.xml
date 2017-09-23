@@ -12,7 +12,7 @@
         android:paddingTop="@dimen/padding_4x"
         android:orientation="vertical">
 
-        <com.moldedbits.genesis.widgets.TranslatableTextView
+        <com.moldedbits.languagetools.widgets.TranslatableTextView
             android:id="@+id/passage_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             style="@style/SectionHeader"
             tools:text="At the Airport"/>
 
-        <com.moldedbits.genesis.widgets.TranslatableTextView
+        <com.moldedbits.languagetools.widgets.TranslatableTextView
             android:id="@+id/tv_passage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
