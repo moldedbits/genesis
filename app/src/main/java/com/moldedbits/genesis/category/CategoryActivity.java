@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CategoryActivity extends BaseActivity implements CategoryContract.IView,
-        CategoryListAdaptor.CategoryClickListener{
+        CategoryListAdaptor.CategoryClickListener {
 
     @BindView(R.id.rvCategory)
     RecyclerView categoryRecyclerView;
