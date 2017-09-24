@@ -1,29 +1,22 @@
 package com.moldedbits.genesis.passagedetail;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import com.moldedbits.genesis.BaseFragment;
 import com.moldedbits.genesis.R;
 import com.moldedbits.languagetools.models.response.PassageDetails;
-import com.moldedbits.genesis.utils.Utilities;
 import com.moldedbits.languagetools.widgets.TranslatableTextView;
+import com.moldedbits.languagetools.widgets.TranslationFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PassageFragment extends BaseFragment implements
-        TranslatableTextView.TranslatableClickListener {
+public class PassageFragment extends TranslationFragment {
 
     private PassageDetails passageDetails;
 
@@ -32,10 +25,6 @@ public class PassageFragment extends BaseFragment implements
 
     @BindView(R.id.tv_passage)
     TranslatableTextView tvPassage;
-
-    PopupWindow popupWindow;
-
-    int popupPadding;
 
     @Nullable
     @Override
@@ -52,8 +41,6 @@ public class PassageFragment extends BaseFragment implements
         if (passageDetails != null) {
             populateData(passageDetails);
         }
-
-        popupPadding = (int) Utilities.convertDpToPx(20, getResources());
     }
 
     public void setPassage(PassageDetails passageDetails) {
@@ -73,41 +60,9 @@ public class PassageFragment extends BaseFragment implements
         tvPassage.setText(details.getPassageText().getSpanish(), details.getSentences());
     }
 
+    @NotNull
     @Override
-    public void onClick(@NonNull String original, @NotNull String translation, int x, int y) {
-        // tvPassage.highlight(original);
-        // TranslationDialog.newInstance(original, translation).show(getFragmentManager(), "Translation");
-
-        View rootView;
-        if (popupWindow == null) {
-            rootView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.popup_window, null);
-            popupWindow = new PopupWindow(rootView,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-
-            // Close window on outside click
-            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            popupWindow.setOutsideTouchable(true);
-
-            rootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    popupWindow.dismiss();
-                }
-            });
-
-            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    tvPassage.removeHighlight();
-                }
-            });
-        } else {
-            rootView = popupWindow.getContentView();
-        }
-
-        ((TextView) rootView.findViewById(R.id.text_translation)).setText(translation);
-        popupWindow.showAsDropDown(tvPassage, x, y + popupPadding);
+    public TranslatableTextView getTranslatableView() {
+        return tvPassage;
     }
 }
