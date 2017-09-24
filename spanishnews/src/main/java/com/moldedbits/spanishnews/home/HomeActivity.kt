@@ -65,11 +65,16 @@ class HomeActivity : AppCompatActivity(), HomeView {
         }
 
         override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-            holder.originalView.text = items[position].title.spanish
+            val summary = items[position]
+            holder.originalView.text = summary.title.spanish
+            holder.categoryView.text = summary.category.spanish
+            holder.dateView.text = summary.publishedDate
         }
 
         class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val originalView: TextView = itemView.findViewById(R.id.title_original)
+            val originalView: TextView = itemView.findViewById(R.id.title)
+            val categoryView: TextView = itemView.findViewById(R.id.category)
+            val dateView: TextView = itemView.findViewById(R.id.published_date)
         }
     }
 }
