@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:support-v4:26.1.0'
     compile project(':languagetools')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

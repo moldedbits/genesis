@@ -20,4 +20,12 @@ object DataProvider {
         return RxFirebaseDatabase.observeSingleValueEvent(articlesRef,
                 DataSnapshotMapper.listOf(ArticleSummary::class.java))
     }
+
+    fun getArticle(articleId: Int) : Maybe<ArticleSummary> {
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val articlesRef = firebaseDatabase.getReference(ARTICLES)
+        val articleRef = articlesRef.child(articleId.toString())
+
+        return RxFirebaseDatabase.observeSingleValueEvent(articleRef, ArticleSummary::class.java)
+    }
 }
