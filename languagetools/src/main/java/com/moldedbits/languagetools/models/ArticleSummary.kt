@@ -6,4 +6,5 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class ArticleSummary(val category: TranslatableString = TranslatableString(),
                           val title: TranslatableString = TranslatableString(),
                           val content: TranslatableString = TranslatableString(),
-                          val publishedDate: String = "")
+                          val publishedDate: String = "",
+                          val sentences: List<TranslatableString> = listOf())

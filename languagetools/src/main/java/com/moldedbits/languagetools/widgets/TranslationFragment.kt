@@ -2,6 +2,7 @@ package com.moldedbits.languagetools.widgets
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,17 @@ import com.moldedbits.languagetools.Utilities
 
 abstract class TranslationFragment : Fragment(), TranslatableTextView.TranslatableClickListener {
 
-    private var popupWindow: PopupWindow
+    private lateinit var popupWindow: PopupWindow
 
     private var popupPadding: Int = 0
 
-    init {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        initPopupWindow()
+    }
+
+    private fun initPopupWindow() {
         val rootView = LayoutInflater.from(context)
                 .inflate(R.layout.popup_window, null)
         popupWindow = PopupWindow(rootView,

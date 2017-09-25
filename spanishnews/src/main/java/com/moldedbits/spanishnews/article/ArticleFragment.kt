@@ -1,16 +1,16 @@
 package com.moldedbits.spanishnews.article
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.moldedbits.languagetools.models.ArticleSummary
-
+import com.moldedbits.languagetools.widgets.TranslatableTextView
+import com.moldedbits.languagetools.widgets.TranslationFragment
 import com.moldedbits.spanishnews.R
 import kotlinx.android.synthetic.main.fragment_article.*
 
-class ArticleFragment : Fragment(), ArticleView {
+class ArticleFragment : TranslationFragment(), ArticleView {
 
     private var articleId: Int = 0
 
@@ -34,7 +34,12 @@ class ArticleFragment : Fragment(), ArticleView {
     }
 
     override fun populateArticle(article: ArticleSummary) {
-        content.setText(article.content)
+        content.setTranslatableClickListener(this)
+        content.setText(article.content.spanish, article.sentences)
+    }
+
+    override fun getTranslatableView(): TranslatableTextView {
+        return content
     }
 
     companion object {
